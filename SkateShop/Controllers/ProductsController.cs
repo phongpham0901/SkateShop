@@ -73,5 +73,9 @@ namespace SkateShop.Controllers
             return RedirectToAction("Index", "Products");
         }
 
+        public IActionResult Edit(int id)
+        {
+            return View(); 
+        }
     }
 }
