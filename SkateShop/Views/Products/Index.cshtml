@@ -1,5 +1,8 @@
 ﻿@model List<Product>
-
+@{
+    int pageIndex = (int)ViewData["PageIndex"]!;
+    int totalPages = (int)ViewData["TotalPages"]!;
+}
 <h2 class="text-center mb-5">List of Products</h2>
 
 <div class="row mb-5">
@@ -15,14 +18,14 @@
 </div>
 
 <table class="table">
-    <thead>
+    <thead class="table-success">
         <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Brand</th>
-            <td>Material</td>
-            <td>Hollow</td>
-            <td>Weight</td>
+            <th>Material</th>
+            <th>Hollow</th>
+            <th>Weight</th>
             <th>Price</th>
             <th>Image</th>
             <th>Created At</th>
@@ -54,3 +57,15 @@
     </tbody>
 </table>
 
+<nav>
+    <ul class="pagination">
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            string active = "";
+            if (i == pageIndex) active = "active";
+            <li class="page-item @active">
+                <a class="page-link" asp-route-pageIndex="@i">@i</a>
+            </li>
+        }
+    </ul>
+</nav>

@@ -1,0 +1,88 @@
+﻿@model ProductDto
+@{
+}
+
+
+<div class="row">
+    <div class="col-md-8 mx-auto rounded border p-3">
+        <h2 class="text-center mb-5">Edit Product</h2>
+
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Name</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Brand</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Brand">
+                    <span asp-validation-for="Brand" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Material</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Material">
+                    <span asp-validation-for="Material" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Hollow</label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="Hollow">
+                        <option value='None'>None</option>
+                        <option value='Hollow Axle'>Hollow Axle</option>
+                        <option value='Hollow kingpin'>Hollow Kingpin</option>
+                        <option value='Hollow Axle & Kingpin'>Hollow Axle & Kingpin</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Weight</label>
+                <div class="col-sm-8">
+                    <select class="form-select" asp-for="Weight">
+                        <option value='Light'>Light</option>
+                        <option value='Heavy'>Heavy</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Price</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Price">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Image</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="ImageFile">
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="offset-sm-4 col-sm-4 d-grid">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-sm-4 d-grid">
+                    <a class="btn btn-outline-primary" asp-controller="Products" asp-action="Index" role="button">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
