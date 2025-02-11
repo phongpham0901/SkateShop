@@ -6,6 +6,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SkateShop.Controllers
 {
+    [Route("/Admin/[controller]/{action=Index}/{id?}")]
     public class ProductsController : Controller
     {
 
@@ -19,9 +20,86 @@ namespace SkateShop.Controllers
             this.environment = environment;
         }
 
-        public IActionResult Index(int pageIndex)
+        public IActionResult Index(int pageIndex, string? search, string? column, string? orderBy)
         {
             IQueryable<Product> query = context.Products;
+
+            // Sắp xếp theo tên cột
+            string[] validColumns = { "Id", "Name", "Brand", "Price", "CreatedAt" };
+            string[] validOrderBy = { "desc", "asc" };
+
+            if (!validColumns.Contains(column))
+            {
+                column = "Id";
+            }
+
+            if (!validOrderBy.Contains(orderBy))
+            {
+                orderBy = "desc";
+            }
+
+            if (column == "Name")
+            {
+                if (orderBy == "asc")
+                {
+                    query = query.OrderBy(p => p.Name);
+                }
+                else
+                {
+                    query = query.OrderByDescending(p => p.Name);
+                }
+            }
+            else if (column == "Brand")
+            {
+                if (orderBy == "asc")
+                {
+                    query = query.OrderBy(p => p.Brand);
+                }
+                else
+                {
+                    query = query.OrderByDescending(p => p.Brand);
+                }
+            }
+            else if (column == "Price")
+            {
+                if (orderBy == "asc")
+                {
+                    query = query.OrderBy(p => p.Price);
+                }
+                else
+                {
+                    query = query.OrderByDescending(p => p.Price);
+                }
+            }
+            else if (column == "CreatedAt")
+            {
+                if (orderBy == "asc")
+                {
+                    query = query.OrderBy(p => p.CreatedAt);
+                }
+                else
+                {
+                    query = query.OrderByDescending(p => p.CreatedAt);
+                }
+            }
+            else
+            {
+                if (orderBy == "asc")
+                {
+                    query = query.OrderBy(p => p.Id);
+                }
+                else
+                {
+                    query = query.OrderByDescending(p => p.Id);
+                }
+            }
+
+            //tìm kiếm
+            if (search != null)
+            {
+                query = query.Where(p => p.Brand.Contains(search) || p.Material.Contains(search));
+            }
+
 
             //phân trang
 
@@ -38,6 +116,12 @@ namespace SkateShop.Controllers
 
             ViewData["PageIndex"] = pageIndex;
             ViewData["TotalPages"] = totalPages;
+
+            ViewData["Search"] = search ?? "";
+
+            ViewData["Column"] = column;
+            ViewData["OrderBy"] = orderBy;
+
             return View(products);
         }
 

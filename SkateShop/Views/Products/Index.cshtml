@@ -1,17 +1,53 @@
-﻿@model List<Product>
+﻿﻿@using Microsoft.AspNetCore.Html;
+@model List<Product>
 @{
     int pageIndex = (int)ViewData["PageIndex"]!;
     int totalPages = (int)ViewData["TotalPages"]!;
+
+    string search = (string)ViewData["Search"]!;
+
+    string column = (string)ViewData["Column"]!;
+    string orderBy = (string)ViewData["OrderBy"]!;
+
+    HtmlString getArrow(string tableColumn)
+    {
+        if (tableColumn != column) return new HtmlString("");
+
+        if (orderBy == "desc")
+        {
+            return new HtmlString("<i class='bi bi-arrow-down'></i>");
+        }
+
+        return new HtmlString("<i class='bi bi-arrow-up'></i>");
+    }
+
 }
+
 <h2 class="text-center mb-5">List of Products</h2>
 
 <div class="row mb-5">
     <div class="col">
-        <a class="btn btn-primary" asp-controller="Products" asp-action="Create">New Product</a>
+        <div>
+            <a class="btn btn-primary" asp-controller="Products" asp-action="Create">New Product</a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" onclick="sortTable('Id')">ID @getArrow("Id")</a></li>
+                    <li><a class="dropdown-item" onclick="sortTable('Name')">Name @getArrow("Name")</a></li>
+                    <li><a class="dropdown-item" onclick="sortTable('Brand')">Brand @getArrow("Brand")</a></li>
+                    <li><a class="dropdown-item" onclick="sortTable('Price')">Price @getArrow("Price")</a></li>
+                    <li><a class="dropdown-item" onclick="sortTable('CreatedAt')">Created At @getArrow("CreatedAt")</a></li>
+                </ul>
+            </div>
+        </div>
+          
     </div>
+    
     <div class="col">
         <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" name="search" value="" placeholder="Search by Name or Brand" aria-label="Search">
+            <input class="form-control me-2" type="search" name="search" value="@search" placeholder="Search by Brand or Material" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
     </div>
@@ -69,3 +105,16 @@
         }
     </ul>
 </nav>
+
+<script>
+    function sortTable(column) {
+        let orderBy = "desc"
+        let currentColumn = "@column";
+        let currentOrder = "@orderBy";
+        if (column === currentColumn) {
+            if (currentOrder == "asc") orderBy = "desc";
+            else orderBy = "asc";
+        }
+        window.location.href = "?search=@(search)&column=" + column + "&orderBy=" + orderBy
+    }
+</script>
