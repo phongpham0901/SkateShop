@@ -1,8 +1,58 @@
-﻿@{
+﻿@model List<Product>
+@{
     ViewData["Title"] = "Home Page";
+    ViewData["HomePage"] = true;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner container py-5">
+        <div class="carousel-item active">
+            <img src="/images/ace.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/images/b.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/images/V.png" class="d-block w-100" alt="...">
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+
+<div class="bg-light">
+    <div class="container py-4">
+        <h2 class="pb-4 text-center">Newest Products</h2>
+
+        <div class="row mb-5 g-3">
+            @foreach (var product in Model)
+            {
+                <div class="col-lg-3 col-md-6">
+                    <div class="rounded border shadow p-3 text-center h-100">
+                        <img src="/products/@product.ImageFileName" class="img-fluid" alt="..."
+                             style="height: 180px; object-fit: contain" />
+                        <hr />
+                        <h5 class="py-2">@product.Name</h5>
+                        <p>
+                            Brand: @product.Brand
+                        </p>
+                        <h4 class="mb-3">@(product.Price)$</h4>
+                        <a class="btn btn-primary btn-sm mb-2" asp-controller="Store"
+                           asp-action="Details" asp-route-id="@product.Id" role="button">Details</a>
+                        <button type="button" class="btn btn-warning btn-sm mb-2" onclick="addToCart(this, @product.Id)">
+                            Add to Cart <i class="bi bi-cart-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </div>
