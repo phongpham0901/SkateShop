@@ -18,7 +18,110 @@ namespace SkateShop.Controllers
 
         public IActionResult Register()
         {
+            if (signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterDto registerDto)
+        {
+            if (signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(registerDto);
+            }
+
+            // tạo tài khoản mới
+            var user = new ApplicationUser()
+            {
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                UserName = registerDto.Email, //tên bằng email
+                Email = registerDto.Email,
+                PhoneNumber = registerDto.PhoneNumber,
+                Address = registerDto.Address,
+                CreatedAt = DateTime.Now,
+            };
+
+
+            var result = await userManager.CreateAsync(user, registerDto.Password);
+
+            if (result.Succeeded)
+            {
+                // đăng ký thành công
+                await userManager.AddToRoleAsync(user, "client");
+
+                // đăng nhập luôn
+                await signInManager.SignInAsync(user, false);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+
+            // đăng ký không thành công
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View(registerDto);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            if (signInManager.IsSignedIn(User))
+            {
+                await signInManager.SignOutAsync();
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Login()
+        {
+            if (signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginDto loginDto)
+        {
+            if (signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(loginDto);
+            }
+
+            var result = await signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password,
+                loginDto.RememberMe, false);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Invalid login attempt.";
+            }
+
+            return View(loginDto);
         }
     }
 }
