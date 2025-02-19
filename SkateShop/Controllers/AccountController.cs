@@ -130,9 +130,9 @@ namespace SkateShop.Controllers
             return View(loginDto);
         }
 
-		//hiển thị dữ liệu lên view
-		// Yêu cầu đăng nhập mới được truy cập
-		[Authorize]
+        //hiển thị dữ liệu lên view
+        // Yêu cầu đăng nhập mới được truy cập
+        [Authorize]
         public async Task<IActionResult> Profile()
         {
             var appUser = await userManager.GetUserAsync(User);
@@ -195,54 +195,54 @@ namespace SkateShop.Controllers
             return View(profileDto);
         }
 
-		[Authorize]
-		public IActionResult Password()
-		{
-			return View();
-		}
+        [Authorize]
+        public IActionResult Password()
+        {
+            return View();
+        }
 
 
-		[Authorize]
-		[HttpPost]
-		public async Task<IActionResult> Password(PasswordDto passwordDto)
-		{
-			if (!ModelState.IsValid)
-			{
-				return View();
-			}
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Password(PasswordDto passwordDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
-			// Get the current user
-			var appUser = await userManager.GetUserAsync(User);
-			if (appUser == null)
-			{
-				return RedirectToAction("Index", "Home");
-			}
+            // Get the current user
+            var appUser = await userManager.GetUserAsync(User);
+            if (appUser == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-			// update the password
-			var result = await userManager.ChangePasswordAsync(appUser,
-				passwordDto.CurrentPassword, passwordDto.NewPassword);
+            // update the password
+            var result = await userManager.ChangePasswordAsync(appUser,
+                passwordDto.CurrentPassword, passwordDto.NewPassword);
 
-			if (result.Succeeded)
-			{
-				ViewBag.SuccessMessage = "Password updated successfully!";
-			}
-			else
-			{
-				ViewBag.ErrorMessage = "Error: " + result.Errors.First().Description;
-			}
+            if (result.Succeeded)
+            {
+                ViewBag.SuccessMessage = "Password updated successfully!";
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Error: " + result.Errors.First().Description;
+            }
 
-			return View();
-		}
+            return View();
+        }
 
-		public IActionResult ForgotPassword()
-		{
-			if (signInManager.IsSignedIn(User))
-			{
-				return RedirectToAction("Index", "Home");
-			}
+        public IActionResult ForgotPassword()
+        {
+            if (signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-			return View();
-		}
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> ForgotPassword([Required, EmailAddress] string email)
@@ -286,7 +286,11 @@ namespace SkateShop.Controllers
             return View();
         }
 
-        
+        //khi copy link mà không thuộc ủy quyền sẽ về index home
+        public IActionResult AccessDenied()
+        {
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }
