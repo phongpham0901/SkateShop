@@ -286,11 +286,26 @@ namespace SkateShop.Controllers
             return View();
         }
 
-        ////khi copy link mà không thuộc ủy quyền sẽ về index home
-        //public IActionResult AccessDenied()
-        //{
-        //    return RedirectToAction("Index", "Home");
-        //}
+        public IActionResult ResetPassword(string? token)
+        {
+            if (signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (token == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
+        //khi copy link mà không thuộc ủy quyền sẽ về index home
+        public IActionResult AccessDenied()
+        {
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }
