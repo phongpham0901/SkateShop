@@ -286,11 +286,7 @@ namespace SkateShop.Controllers
             return View();
         }
 
-        //khi copy link mà không thuộc ủy quyền sẽ về index home
-        public IActionResult AccessDenied()
-        {
-            return RedirectToAction("Index", "Home");
-        }
+        
 
     }
 }
