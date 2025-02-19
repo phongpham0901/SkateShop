@@ -26,7 +26,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-Configuration.Default.ApiKey.Add("api-key", builder.Configuration["BrevoSettings:ApiKey"]);
+//Configuration.Default.ApiKey.Add("api-key", builder.Configuration["BrevoSettings:ApiKey"]);
 
 var app = builder.Build();
 
