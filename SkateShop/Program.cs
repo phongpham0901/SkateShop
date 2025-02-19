@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using sib_api_v3_sdk.Client;
 using SkateShop.Models;
 using SkateShop.Services;
 
@@ -22,7 +23,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
         options.Password.RequireUppercase = false;
         options.Password.RequireLowercase = false;
     })
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+Configuration.Default.ApiKey.Add("api-key", builder.Configuration["BrevoSettings:ApiKey"]);
 
 var app = builder.Build();
 

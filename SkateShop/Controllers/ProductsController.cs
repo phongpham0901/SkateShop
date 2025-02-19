@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SkateShop.Models;
 using SkateShop.Services;
 using System;
@@ -6,7 +7,8 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SkateShop.Controllers
 {
-    [Route("/Admin/[controller]/{action=Index}/{id?}")]
+	[Authorize(Roles = "admin")]
+	[Route("/Admin/[controller]/{action=Index}/{id?}")]
     public class ProductsController : Controller
     {
 
