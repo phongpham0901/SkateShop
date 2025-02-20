@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SkateShop.Models;
 using SkateShop.Services;
 using System.ComponentModel.DataAnnotations;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SkateShop.Controllers
 {
@@ -244,6 +245,7 @@ namespace SkateShop.Controllers
             return View();
         }
 
+        //gửi link qua email
         [HttpPost]
         public async Task<IActionResult> ForgotPassword([Required, EmailAddress] string email)
         {
@@ -301,6 +303,48 @@ namespace SkateShop.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(string? token, PasswordResetDto model)
+        {
+            if (signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (token == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = "Token not valid!";
+                return View(model);
+            }
+
+            var result = await userManager.ResetPasswordAsync(user, token, model.Password);
+
+            if (result.Succeeded)
+            {
+                ViewBag.SuccessMessage = "Password reset successfully!";
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            return View(model);
+        }
         //khi copy link mà không thuộc ủy quyền sẽ về index home
         public IActionResult AccessDenied()
         {

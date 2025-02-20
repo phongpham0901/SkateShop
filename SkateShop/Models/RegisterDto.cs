@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SkateShop.CustomValidation;
+using System.ComponentModel.DataAnnotations;
 
 namespace SkateShop.Models
 {
@@ -8,6 +9,7 @@ namespace SkateShop.Models
         public string FirstName { get; set; } = "";
 
         [Required(ErrorMessage = "The Last Name field is required"), MaxLength(100)]
+        [NotAdmin]
         public string LastName { get; set; } = "";
 
         [Required, EmailAddress, MaxLength(100)]
