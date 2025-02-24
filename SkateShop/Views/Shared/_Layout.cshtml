@@ -224,6 +224,33 @@
             </div>
         </nav>
     </header>
+
+    <!-- Chat Bubble -->
+    <div id="chat-bubble"">
+        <i class="bi bi-chat-dots-fill" onclick="window.location.href='https://m.me/598952516630813';"></i>
+    </div>
+
+    <style>
+        #chat-bubble {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+    </style>
+
+    
     @if (ViewData["HomePage"] == null)
     {
         <div class="container mt-3">
