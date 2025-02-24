@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SkateShop.Models;
+using SkateShop.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace SkateShop.Controllers
 {
@@ -10,14 +12,16 @@ namespace SkateShop.Controllers
     [Route("/Admin/[controller]/{action=Index}/{id?}")]
     public class UsersController : Controller
     {
+        private readonly ApplicationDbContext context;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly int pageSize = 5;
 
-        public UsersController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UsersController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.context = context;
         }
 
         public IActionResult Index(int? pageIndex)
@@ -144,6 +148,14 @@ namespace SkateShop.Controllers
 				TempData["ErrorMessageIndex"] = "You cannot delete Admin role!";
 				return RedirectToAction("Index", "Users");
 			}
+
+            //Check if the user has existing orders before allowing deletion
+            bool hasOrders = await context.Orders.AnyAsync(o => o.ClientId == appUser.Id);
+            if (hasOrders)
+            {
+                TempData["ErrorMessage"] = "Cannot delete this user because they have existing orders.";
+                return RedirectToAction("Details", "Users", new { id });
+            }
 
             // xóa
             var result = await userManager.DeleteAsync(appUser);
