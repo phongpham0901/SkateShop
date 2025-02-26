@@ -88,7 +88,59 @@ namespace SkateShop.Controllers
                 return RedirectToAction("Index", "Store");
             }
 
+            // Lấy danh sách đánh giá cho sản phẩm
+            var assessments = context.Assesses.Where(a => a.Product.Id == id).ToList();
+
+            ViewBag.Assessments = assessments; // Truyền danh sách qua ViewBag
+
+            // Truyền sản phẩm qua ViewBag và danh sách qua Model
+            ViewBag.Assess = product;
+
+
             return View(product);
+        }
+
+        [HttpGet]
+        public IActionResult AddAssess(int id)
+        {
+            // Kiểm tra xem ID có được truyền không
+            Console.WriteLine("Product ID: " + id);
+
+            var product = context.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
+            {
+                return RedirectToAction("Index", "Store");
+            }
+
+            ViewBag.AddAssess = product; // Truyền sản phẩm vào ViewBag
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddAssess(AssessDto assessDto)
+        {
+            // Tìm sản phẩm theo ProductId
+            var product = context.Products.FirstOrDefault(p => p.Id == assessDto.ProductId);
+            if (product == null)
+            {
+                return NotFound(); // Nếu không tìm thấy sản phẩm thì trả về 404
+            }
+
+            // Tạo đối tượng Assess
+            Assess a = new Assess()
+            {
+                start = assessDto.start,
+                Name = assessDto.Name,
+                Description = assessDto.Description,
+                Product = product // Gán toàn bộ đối tượng Product
+            };
+
+            // Lưu vào database
+            context.Add(a);
+            context.SaveChanges();
+
+            // Quay lại trang Assess của sản phẩm đó
+            return RedirectToAction("Details", "Store", new { id = assessDto.ProductId });
         }
     }
 }

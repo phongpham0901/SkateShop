@@ -1,7 +1,6 @@
 ﻿@model Product
 
 @{
-
 }
 
 <div class="row">
@@ -56,3 +55,60 @@
     </div>
 </div>
 
+@* Đánh Giá *@
+<div class="mt-4">
+    <h4>Customer Reviews</h4>
+    <hr />
+
+    @if (ViewBag.Assessments != null && ((List<Assess>)ViewBag.Assessments).Count > 0)
+    {
+        @foreach (var assess in ViewBag.Assessments)
+        {
+            <div class="border rounded p-2 mb-2">
+                <div>
+                    <strong>Name:</strong> @assess.Name
+                </div>
+                <div>
+                    <strong>Rating:</strong>
+                    <div class="stars" data-rating="@assess.start"></div> @* Sử dụng JS để hiển thị sao *@
+                </div>
+                <div>
+                    <strong>Comment:</strong> @assess.Description
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No reviews yet. Be the first to review this product!</p>
+    }
+</div>
+
+
+<div class="row mb-5">
+    <div class="col">
+        <a class="btn btn-primary" asp-controller="Store" asp-action="AddAssess" asp-route-id="@ViewBag.Assess.Id">Add Assess</a>
+    </div>
+</div>
+
+<script>
+    // JavaScript để hiển thị số sao
+    document.addEventListener("DOMContentLoaded", function () {
+        const starContainers = document.querySelectorAll(".stars");
+
+        starContainers.forEach(function (container) {
+            const rating = parseInt(container.getAttribute("data-rating")); // Lấy rating từ data-rating
+            let starsHtml = "";
+
+            for (let i = 0; i < rating; i++) {
+                starsHtml += '<i class="bi bi-star-fill text-warning"></i>'; // Sao vàng
+            }
+            for (let i = rating; i < 5; i++) {
+                starsHtml += '<i class="bi bi-star text-secondary"></i>'; // Sao xám
+            }
+
+            container.innerHTML = starsHtml;
+        });
+    });
+
+</script>
