@@ -1,0 +1,32 @@
+﻿@model List<OrderItem>
+
+@{
+    ViewData["Title"] = "Revenue Statistics";
+}
+
+<h2>Thống kê Doanh Thu</h2>
+
+<!-- Nút xuất Excel -->
+<a href="@Url.Action("ExportToExcel", "Statistical")" class="btn btn-success mb-3">Export Excel</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Brand</th>
+            <th>Quantity</th>
+            <th>Total Revenue</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Product.Name</td>
+                <td>@item.Product.Brand</td>
+                <td>@item.Quantity</td> <!-- Đã sửa -->
+                <td>@item.UnitPrice.ToString("C")</td> <!-- Đã sửa -->
+            </tr>
+        }
+    </tbody>
+</table>
