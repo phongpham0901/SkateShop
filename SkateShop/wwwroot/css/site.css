@@ -44,34 +44,3 @@ body {
         background-color: #0056b3;
     }
 
-#promo-bubble {
-    position: fixed;
-    bottom: 50px;
-    left: 20px;
-    width: 200px;
-    height: 300px; 
-    background-color: #ffc107;
-    color: #333;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 16px;
-    text-align: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-    #promo-bubble button {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        border: none;
-        background: transparent;
-        color: #333;
-        font-weight: bold;
-        cursor: pointer;
-        font-size: 18px;
-    }
