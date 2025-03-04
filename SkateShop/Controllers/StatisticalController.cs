@@ -34,6 +34,9 @@ namespace SkateShop.Controllers
                 .OrderByDescending(s => s.UnitPrice) // Sắp xếp theo doanh thu giảm dần
                 .ToListAsync();
 
+            var totalRevenueOfAllProducts = statistics.Sum(s => s.UnitPrice);
+            ViewBag.TotalRevenueOfAllProducts = totalRevenueOfAllProducts;
+
             return View(statistics);
         }
 
@@ -53,6 +56,8 @@ namespace SkateShop.Controllers
                 .OrderByDescending(s => s.TotalRevenue)
                 .ToListAsync();
 
+            var totalRevenueOfAllProducts = statistics.Sum(s => s.TotalRevenue);
+
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial; 
 
             using (var package = new ExcelPackage())
@@ -64,6 +69,7 @@ namespace SkateShop.Controllers
                 worksheet.Cells[1, 2].Value = "Brand";
                 worksheet.Cells[1, 3].Value = "Quantity";
                 worksheet.Cells[1, 4].Value = "Total Revenue";
+                worksheet.Cells[1, 5].Value = "Total Revenue Of All Products";
 
                 // Dữ liệu
                 int row = 2;
@@ -75,6 +81,8 @@ namespace SkateShop.Controllers
                     worksheet.Cells[row, 4].Value = item.TotalRevenue;
                     row++;
                 }
+
+                worksheet.Cells[row, 5].Value = totalRevenueOfAllProducts;
 
                 // Định dạng bảng
                 worksheet.Cells.AutoFitColumns();

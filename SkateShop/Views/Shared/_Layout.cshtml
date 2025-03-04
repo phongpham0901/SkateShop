@@ -256,35 +256,20 @@
         </div>
     </footer>
 
+    @inject ApplicationDbContext context
+
+    <div id="promo-bubble">
+        <img src="/images/skater.jpg" alt="Sale" style="width: 100%; border-radius: 5px; margin-bottom: 10px;">
+        <p>🔥  🔥</p>
+    </div>
+
+
     <!-- Chat Bubble -->
     <div id="chat-bubble">
         <i class="bi bi-messenger" onclick="openMessenger()"></i>
     </div>
 
-    <style>
-        #chat-bubble {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease;
-        }
-
-            #chat-bubble:hover {
-                background-color: #0056b3;
-            }
-    </style>
+    
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

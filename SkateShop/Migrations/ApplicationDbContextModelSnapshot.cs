@@ -261,7 +261,7 @@ namespace SkateShop.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Assesses");
+                    b.ToTable("Assesses", (string)null);
                 });
 
             modelBuilder.Entity("SkateShop.Models.Order", b =>
@@ -307,7 +307,7 @@ namespace SkateShop.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("SkateShop.Models.OrderItem", b =>
@@ -337,7 +337,7 @@ namespace SkateShop.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("SkateShop.Models.Product", b =>
@@ -387,7 +387,7 @@ namespace SkateShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

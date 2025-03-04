@@ -8,6 +8,7 @@
 
 <!-- Nút xuất Excel -->
 <a href="@Url.Action("ExportToExcel", "Statistical")" class="btn btn-success mb-3">Export Excel</a>
+<p>Total revenue of all products: @ViewBag.TotalRevenueOfAllProducts.ToString("N0") $</p>
 
 <table class="table table-bordered">
     <thead>

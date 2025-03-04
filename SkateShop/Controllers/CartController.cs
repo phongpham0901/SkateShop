@@ -34,18 +34,19 @@ namespace SkateShop.Controllers
             return View();
         }
 
+
         [Authorize]
         [HttpPost]
         public IActionResult Index(CheckoutDto model)
         {
-
             List<OrderItem> cartItems = CartHelper.GetCartItems(Request, Response, context);
             decimal subtotal = CartHelper.GetSubtotal(cartItems);
 
-            ViewBag.CartItems = cartItems;
-            ViewBag.ShippingFee = shippingFee;
-            ViewBag.Subtotal = subtotal;
-            ViewBag.Total = subtotal + shippingFee;
+                ViewBag.CartItems = cartItems;
+                ViewBag.ShippingFee = shippingFee;
+                ViewBag.Subtotal = subtotal;
+                ViewBag.Total = subtotal + shippingFee;
+
 
             if (!ModelState.IsValid)
             {
