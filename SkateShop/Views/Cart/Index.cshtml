@@ -138,18 +138,6 @@
                         <button class="btn btn-outline-light" type="submit">Checkout</button>
                     </div>
                 </form>
-
-                @if (ViewBag.DiscountAmount != null && ViewBag.DiscountAmount > 0)
-                {
-                    <div class="row">
-                        <div class="col">
-                            <p>Discount (@ViewBag.AppliedDiscount):</p>
-                        </div>
-                        <div class="col">
-                            <p class="text-end text-danger">-@ViewBag.DiscountAmount$</p>
-                        </div>
-                    </div>
-                }
             }
 
         </div>

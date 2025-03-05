@@ -29,5 +29,8 @@ namespace SkateShop.Models
         public string ImageFileName { get; set; } = "";
 
         public DateTime CreatedAt { get; set; }
+
+        [MaxLength(100)]
+        public string Sale { get; set; } = "";
     }
 }

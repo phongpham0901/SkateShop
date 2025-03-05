@@ -247,6 +247,7 @@ namespace SkateShop.Controllers
             product.Weight = productDto.Weight;
             product.Price = productDto.Price;
             product.ImageFileName = newFileName;
+            product.Sale = productDto.Sale;
 
 
             context.SaveChanges();

@@ -80,6 +80,13 @@ namespace SkateShop.Controllers
             return View(storeSearchModel);
         }
 
+        public IActionResult Sale()
+        {
+            var query = context.Products.ToList();
+
+            return View(query);
+        }
+
         public IActionResult Details(int id)
         {
             var product = context.Products.Find(id);

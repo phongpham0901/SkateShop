@@ -65,6 +65,7 @@
             <th>Price</th>
             <th>Image</th>
             <th>Created At</th>
+            <th>Sale Or Not</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -82,6 +83,7 @@
                 <td>@(product.Price)$</td>
                 <td><img src="/products/@product.ImageFileName" width="100" /></td>
                 <td>@product.CreatedAt.ToString("MM/dd/yyyy")</td>
+                <td>@product.Sale</td>
                 <td style="white-space:nowrap">
                     <a class="btn btn-primary btn-sm" asp-controller="Products" asp-action="Edit"
                        asp-route-id="@product.Id">Edit</a>

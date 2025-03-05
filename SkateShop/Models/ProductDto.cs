@@ -23,5 +23,8 @@ namespace SkateShop.Models
         public decimal Price { get; set; }
 
         public IFormFile? ImageFile { get; set; }
+
+        [MaxLength(100)]
+        public string Sale { get; set; } = "";
     }
 }
