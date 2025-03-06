@@ -47,7 +47,7 @@
 
     <div class="col">
         <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" name="search" value="@search" placeholder="Search by Brand or Material" aria-label="Search">
+            <input class="form-control me-2" type="search" name="search" value="@search" placeholder="Search by Brand, Material or Sale " aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
     </div>
@@ -66,6 +66,7 @@
             <th>Image</th>
             <th>Created At</th>
             <th>Sale Or Not</th>
+            <th>Original Price</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -84,6 +85,12 @@
                 <td><img src="/products/@product.ImageFileName" width="100" /></td>
                 <td>@product.CreatedAt.ToString("MM/dd/yyyy")</td>
                 <td>@product.Sale</td>
+                <td>
+                    @if (@product.Sale == "Sale Now")
+                    {
+                        @(product.OriginalPrice)
+                    }$
+                </td>
                 <td style="white-space:nowrap">
                     <a class="btn btn-primary btn-sm" asp-controller="Products" asp-action="Edit"
                        asp-route-id="@product.Id">Edit</a>
@@ -102,7 +109,8 @@
             string active = "";
             if (i == pageIndex) active = "active";
             <li class="page-item @active">
-                <a class="page-link" asp-route-pageIndex="@i">@i</a>
+                <a class="page-link" asp-route-pageIndex="@i"
+                   asp-route-search="@search" asp-route-column="@column" asp-route-orderBy="@orderBy">@i</a>
             </li>
         }
     </ul>

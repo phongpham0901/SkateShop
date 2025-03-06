@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace SkateShop.Models
 {
@@ -21,6 +22,9 @@ namespace SkateShop.Models
 
         [Required]
         public decimal Price { get; set; }
+
+        [Precision(16, 2)]
+        public decimal OriginalPrice { get; set; }
 
         public IFormFile? ImageFile { get; set; }
 

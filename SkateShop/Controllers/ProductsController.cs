@@ -99,7 +99,7 @@ namespace SkateShop.Controllers
             //tìm kiếm
             if (search != null)
             {
-                query = query.Where(p => p.Brand.Contains(search) || p.Material.Contains(search));
+                query = query.Where(p => p.Brand.Contains(search) || p.Material.Contains(search) || p.Sale.Contains(search));
             }
 
 
@@ -165,6 +165,8 @@ namespace SkateShop.Controllers
                 Price = productDto.Price,
                 ImageFileName = newFileName,
                 CreatedAt = DateTime.Now,
+                Sale = productDto.Sale,
+                OriginalPrice = productDto.OriginalPrice,
             };
 
 
@@ -191,6 +193,9 @@ namespace SkateShop.Controllers
                 Hollow = product.Hollow,
                 Weight = product.Weight,
                 Price = product.Price,
+                Sale = product.Sale,
+                OriginalPrice = product.OriginalPrice,
+
             };
 
 
@@ -248,6 +253,7 @@ namespace SkateShop.Controllers
             product.Price = productDto.Price;
             product.ImageFileName = newFileName;
             product.Sale = productDto.Sale;
+            product.OriginalPrice = productDto.OriginalPrice;
 
 
             context.SaveChanges();

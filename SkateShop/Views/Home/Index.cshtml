@@ -37,7 +37,7 @@
             {
                 <div class="col-lg-3 col-md-6">
                     <div class="position-relative rounded border shadow p-3 text-center h-100">
-                        @if (product.Sale == "Sale")
+                        @if (product.Sale == "Sale Now")
                         {
                             <span class="badge-sale">Sale</span>
                         }
@@ -48,6 +48,10 @@
                         <p>
                             Brand: @product.Brand
                         </p>
+                        @if (product.Sale == "Sale Now")
+                        {
+                            <span><del>@product.OriginalPrice$</del></span>
+                        }
                         <h4 class="mb-3">@(product.Price)$</h4>
                         <a class="btn btn-primary btn-sm mb-2" asp-controller="Store"
                            asp-action="Details" asp-route-id="@product.Id" role="button">Details</a>

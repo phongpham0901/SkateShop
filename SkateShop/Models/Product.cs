@@ -25,6 +25,9 @@ namespace SkateShop.Models
         [Precision(16, 2)]
         public decimal Price { get; set; }
 
+        [Precision(16, 2)]
+        public decimal OriginalPrice { get; set; }
+
         [MaxLength(100)]
         public string ImageFileName { get; set; } = "";
 

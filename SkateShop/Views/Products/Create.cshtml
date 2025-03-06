@@ -75,8 +75,16 @@
                 <div class="col-sm-8">
                     <select class="form-select" asp-for="Sale">
                         <option value='Not Sale'>Not Sale</option>
-                        <option value='Sale'>Sale</option>
+                        <option value='Sale Now'>Sale Now</option>
                     </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Original Price</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="OriginalPrice" value="0">
+                    <span asp-validation-for="OriginalPrice" class="text-danger"></span>
                 </div>
             </div>
 
