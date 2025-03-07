@@ -21,17 +21,18 @@ namespace SkateShop.Controllers
 
         public async Task<IActionResult> Index()
         {
-
             var statistics = await context.Items
-                .Include(o => o.Product) // Load sản phẩm
+                .Include(o => o.Product)
+                .Include(o => o.Order) // Load Order để kiểm tra OrderStatus
+                .Where(o => o.Order.OrderStatus == "Delivered") // Lọc chỉ lấy đơn hàng đã giao
                 .GroupBy(o => o.Product.Id)
                 .Select(g => new OrderItem
                 {
-                    Product = g.First().Product, // Lấy thông tin sản phẩm
-                    Quantity = g.Sum(o => o.Quantity), // Tổng số lượng bán
-                    UnitPrice = g.Sum(o => o.Quantity * o.UnitPrice) // Tổng doanh thu
+                    Product = g.First().Product,
+                    Quantity = g.Sum(o => o.Quantity),
+                    UnitPrice = g.Sum(o => o.Quantity * o.UnitPrice)
                 })
-                .OrderByDescending(s => s.UnitPrice) // Sắp xếp theo doanh thu giảm dần
+                .OrderByDescending(s => s.UnitPrice) // Đúng cú pháp
                 .ToListAsync();
 
             var totalRevenueOfAllProducts = statistics.Sum(s => s.UnitPrice);
@@ -41,10 +42,14 @@ namespace SkateShop.Controllers
         }
 
 
+
+
         public async Task<IActionResult> ExportToExcel()
         {
             var statistics = await context.Items
                 .Include(o => o.Product)
+                .Include(o => o.Order)
+                .Where(o => o.Order.OrderStatus == "Delivered")
                 .GroupBy(o => o.Product.Id)
                 .Select(g => new
                 {
@@ -53,12 +58,12 @@ namespace SkateShop.Controllers
                     TotalQuantity = g.Sum(o => o.Quantity),
                     TotalRevenue = g.Sum(o => o.Quantity * o.UnitPrice)
                 })
-                .OrderByDescending(s => s.TotalRevenue)
+                .OrderByDescending(s => s.TotalRevenue) // Đúng cú pháp
                 .ToListAsync();
 
             var totalRevenueOfAllProducts = statistics.Sum(s => s.TotalRevenue);
 
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; 
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             using (var package = new ExcelPackage())
             {
@@ -84,7 +89,6 @@ namespace SkateShop.Controllers
 
                 worksheet.Cells[row, 5].Value = totalRevenueOfAllProducts;
 
-                // Định dạng bảng
                 worksheet.Cells.AutoFitColumns();
 
                 var stream = new MemoryStream(package.GetAsByteArray());
@@ -93,6 +97,8 @@ namespace SkateShop.Controllers
         }
 
 
-      
+
+
+
     }
 }

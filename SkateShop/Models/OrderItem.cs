@@ -14,5 +14,9 @@ namespace SkateShop.Models
 
         // navigation property
         public Product Product { get; set; } = new Product();
+
+        // Khóa ngoại kết nối với Order
+        public int OrderId { get; set; }
+        public Order Order { get; set; } = null!; // Navigation property
     }
 }
