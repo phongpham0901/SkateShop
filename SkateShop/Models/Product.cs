@@ -17,10 +17,10 @@ namespace SkateShop.Models
         public string Material { get; set; } = "";
 
         [MaxLength(100)]
-        public string Hollow { get; set; } = "";
+        public string Size { get; set; } = "";
 
         [MaxLength(100)]
-        public string Weight { get; set; } = "";
+        public string Type { get; set; } = "";
 
         [Precision(16, 2)]
         public decimal Price { get; set; }

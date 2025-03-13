@@ -7,15 +7,12 @@
 
 <form class="row g-3 mb-3">
     <div class="col-lg-2 col-md-4">
-        <select class="form-select" name="brand" asp-for="Brand" onchange="this.form.submit()">
-            <option value="">All Brands</option>
-            <option value="Independent">Independent</option>
-            <option value="Thunder">Thunder</option>
-            <option value="Venture">Venture</option>
-            <option value="Tensor">Tensor</option>
-            <option value="Ace">Ace</option>
-            <option value="Maven">Maven</option>
-            <option value="Blank">Blank</option>
+        <select class="form-select" name="type" asp-for="Type" onchange="this.form.submit()">
+            <option value="">All Product</option>
+            <option value="Truck">Truck</option>
+            <option value="Deck">Deck</option>
+            <option value="Wheel">Wheel</option>
+            <option value="T-Shirt">T-Shirt</option>
         </select>
     </div>
     <div class="col-lg-2 col-md-4">
@@ -86,7 +83,7 @@
             <li class="page-item @active">
                 <a class="page-link" asp-route-pageIndex="@i" asp-route-search="@Model.Search"
                    asp-route-name="@Model.Name"
-                   asp-route-brand="@Model.Brand"
+                   asp-route-type="@Model.Type"
                    asp-route-sort="@Model.Sort">@i</a>
             </li>
         }

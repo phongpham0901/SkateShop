@@ -160,8 +160,8 @@ namespace SkateShop.Controllers
                 Name = productDto.Name,
                 Brand = productDto.Brand,
                 Material = productDto.Material,
-                Hollow = productDto.Hollow,
-                Weight = productDto.Weight,
+                Size = productDto.Size,
+                Type = productDto.Type,
                 Price = productDto.Price,
                 ImageFileName = newFileName,
                 CreatedAt = DateTime.Now,
@@ -190,8 +190,8 @@ namespace SkateShop.Controllers
                 Name = product.Name,
                 Brand = product.Brand,
                 Material = product.Material,
-                Hollow = product.Hollow,
-                Weight = product.Weight,
+                Size = product.Size,
+                Type = product.Type,
                 Price = product.Price,
                 Sale = product.Sale,
                 OriginalPrice = product.OriginalPrice,
@@ -248,8 +248,8 @@ namespace SkateShop.Controllers
             product.Name = productDto.Name;
             product.Brand = productDto.Brand;
             product.Material = productDto.Material;
-            product.Hollow = productDto.Hollow;
-            product.Weight = productDto.Weight;
+            product.Size = productDto.Type;
+            product.Type = productDto.Type;
             product.Price = productDto.Price;
             product.ImageFileName = newFileName;
             product.Sale = productDto.Sale;

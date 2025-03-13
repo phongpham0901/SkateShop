@@ -33,23 +33,21 @@
             </div>
 
             <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Hollow</label>
+                <label class="col-sm-4 col-form-label">Size</label>
                 <div class="col-sm-8">
-                    <select class="form-select" asp-for="Hollow">
-                        <option value='None'>None</option>
-                        <option value='Hollow Axle'>Hollow Axle</option>
-                        <option value='Hollow kingpin'>Hollow Kingpin</option>
-                        <option value='Hollow Axle & Kingpin'>Hollow Axle & Kingpin</option>
-                    </select>
+                    <input class="form-control" asp-for="Size">
+                    <span asp-validation-for="Size" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Weight</label>
+                <label class="col-sm-4 col-form-label">Type</label>
                 <div class="col-sm-8">
-                    <select class="form-select" asp-for="Weight">
-                        <option value='Light'>Light</option>
-                        <option value='Heavy'>Heavy</option>
+                    <select class="form-select" asp-for="Type">
+                        <option value='Truck'>Truck</option>
+                        <option value='Deck'>Deck</option>
+                        <option value='Wheel'>Wheel</option>
+                        <option value='T-shirts'>T-shirts</option>
                     </select>
                 </div>
             </div>

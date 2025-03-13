@@ -55,6 +55,7 @@ namespace SkateShop.Controllers
                 {
                     ProductName = g.First().Product.Name,
                     Brand = g.First().Product.Brand,
+                    Type = g.First().Product.Type,
                     TotalQuantity = g.Sum(o => o.Quantity),
                     TotalRevenue = g.Sum(o => o.Quantity * o.UnitPrice)
                 })
@@ -72,9 +73,10 @@ namespace SkateShop.Controllers
                 // Header
                 worksheet.Cells[1, 1].Value = "Product";
                 worksheet.Cells[1, 2].Value = "Brand";
-                worksheet.Cells[1, 3].Value = "Quantity";
-                worksheet.Cells[1, 4].Value = "Total Revenue";
-                worksheet.Cells[1, 5].Value = "Total Revenue Of All Products";
+                worksheet.Cells[1, 3].Value = "Brand";
+                worksheet.Cells[1, 4].Value = "Quantity";
+                worksheet.Cells[1, 5].Value = "Total Revenue";
+                worksheet.Cells[1, 6].Value = "Total Revenue Of All Products";
 
                 // Dữ liệu
                 int row = 2;
@@ -82,12 +84,13 @@ namespace SkateShop.Controllers
                 {
                     worksheet.Cells[row, 1].Value = item.ProductName;
                     worksheet.Cells[row, 2].Value = item.Brand;
-                    worksheet.Cells[row, 3].Value = item.TotalQuantity;
-                    worksheet.Cells[row, 4].Value = item.TotalRevenue;
+                    worksheet.Cells[row, 3].Value = item.Type;
+                    worksheet.Cells[row, 4].Value = item.TotalQuantity;
+                    worksheet.Cells[row, 5].Value = item.TotalRevenue;
                     row++;
                 }
 
-                worksheet.Cells[row, 5].Value = totalRevenueOfAllProducts;
+                worksheet.Cells[row, 6].Value = totalRevenueOfAllProducts;
 
                 worksheet.Cells.AutoFitColumns();
 

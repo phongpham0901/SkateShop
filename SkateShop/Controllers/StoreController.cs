@@ -14,7 +14,7 @@ namespace SkateShop.Controllers
             this.context = context;
         }
 
-        public IActionResult Index(int pageIndex, string? search, string? name, string? brand, string? sort)
+        public IActionResult Index(int pageIndex, string? search, string? name, string? type, string? sort)
         {
             IQueryable<Product> query = context.Products;
 
@@ -26,9 +26,9 @@ namespace SkateShop.Controllers
 
 
             // Lọc
-            if (brand != null && brand.Length > 0)
+            if (type != null && type.Length > 0)
             {
-                query = query.Where(p => p.Brand.Contains(brand));
+                query = query.Where(p => p.Type.Contains(type));
             }
 
             
@@ -73,7 +73,7 @@ namespace SkateShop.Controllers
             {
                 Search = search,
                 Name = name,
-                Brand = brand,
+                Type = type,
                 Sort = sort
             };
 
