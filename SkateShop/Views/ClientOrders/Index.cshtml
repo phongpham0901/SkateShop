@@ -1,4 +1,5 @@
 ﻿﻿@{
+    string search = (string)ViewData["Search"]!;
 }
 
 <h3 class="text-center mb-4">List of Orders</h3>
@@ -10,6 +11,25 @@
         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
     </div>
 }
+
+<div class="row mb-5">
+    <div class="col">
+        <form class="d-flex" role="search">
+            <select class="form-control me-2" name="search" id="search">
+                <option value="">All</option>
+                <option value="pending">Pending</option>
+                <option value="created">Created</option>
+                <option value="accepted">Accepted</option>
+                <option value="canceled">Canceled</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+                <option value="returned">Returned</option>
+                <option value="deleted">Deleted</option>
+            </select>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</div>
 
 <table class="table">
     <thead>
@@ -104,8 +124,18 @@
             if (i == ViewBag.PageIndex) active = "active";
 
             <li class="page-item @active">
-                <a class="page-link" asp-route-pageIndex=@i>@i</a>
+                <a class="page-link" asp-route-pageIndex="@i" asp-route-search="@search">@i</a>
             </li>
         }
     </ul>
 </nav>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedValue = urlParams.get("search");
+        if (selectedValue) {
+            document.getElementById("search").value = selectedValue;
+        }
+    });
+</script>

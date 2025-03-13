@@ -19,9 +19,15 @@ namespace SkateShop.Controllers
             this.context = context;
         }
 
-        public IActionResult Index(int pageIndex)
+        public IActionResult Index(int pageIndex, string? search)
         {
             IQueryable<Order> query = context.Orders.Include(o => o.Client).Include(o => o.Items).OrderByDescending(o => o.Id);
+
+            //tìm kiếm
+            if (search != null)
+            {
+                query = query.Where(p => p.OrderStatus.Contains(search));
+            }
 
             if (pageIndex <= 0)
             {
@@ -39,7 +45,7 @@ namespace SkateShop.Controllers
             ViewBag.Orders = orders;
             ViewBag.PageIndex = pageIndex;
             ViewBag.TotalPages = totalPages;
-
+            ViewData["Search"] = search ?? "";
             return View();
         }
 

@@ -21,7 +21,7 @@ namespace SkateShop.Controllers
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(int pageIndex)
+        public async Task<IActionResult> Index(int pageIndex, string? search)
         {
 
             var currentUser = await userManager.GetUserAsync(User);
@@ -31,6 +31,12 @@ namespace SkateShop.Controllers
             }
 
             IQueryable<Order> query = context.Orders.Include(o => o.Items).OrderByDescending(o => o.Id).Where(o => o.ClientId == currentUser.Id);
+
+            //tìm kiếm
+            if (search != null)
+            {
+                query = query.Where(p => p.OrderStatus.Contains(search));
+            }
 
             if (pageIndex <= 0)
             {
@@ -48,7 +54,7 @@ namespace SkateShop.Controllers
             ViewBag.Orders = orders;
             ViewBag.PageIndex = pageIndex;
             ViewBag.TotalPages = totalPages;
-
+            ViewData["Search"] = search ?? "";
             return View();
         }
 
