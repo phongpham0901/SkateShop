@@ -20,7 +20,7 @@ namespace SkateShop.Controllers
             return View(products);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Policy()
         {
             return View();
         }

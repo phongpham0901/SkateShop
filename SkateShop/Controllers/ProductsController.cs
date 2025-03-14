@@ -248,7 +248,7 @@ namespace SkateShop.Controllers
             product.Name = productDto.Name;
             product.Brand = productDto.Brand;
             product.Material = productDto.Material;
-            product.Size = productDto.Type;
+            product.Size = productDto.Size;
             product.Type = productDto.Type;
             product.Price = productDto.Price;
             product.ImageFileName = newFileName;
