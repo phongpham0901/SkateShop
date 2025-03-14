@@ -24,9 +24,15 @@ namespace SkateShop.Controllers
             this.context = context;
         }
 
-        public IActionResult Index(int? pageIndex)
+        public IActionResult Index(int? pageIndex, string? search)
         {
             IQueryable<ApplicationUser> query = userManager.Users.OrderByDescending(u => u.CreatedAt);
+
+            //tìm kiếm
+            if (search != null)
+            {
+                query = query.Where(p => p.PhoneNumber.Contains(search));
+            }
 
             // phân trang
             if (pageIndex == null || pageIndex < 1)
@@ -42,7 +48,7 @@ namespace SkateShop.Controllers
 
             ViewBag.PageIndex = pageIndex;
             ViewBag.TotalPages = totalPages;
-
+            ViewData["Search"] = search ?? "";
             return View(users);
         }
 
