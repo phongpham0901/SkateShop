@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using SkateShop.Models;
 using SkateShop.Services;
 
@@ -7,11 +8,13 @@ namespace SkateShop.Controllers
     public class StoreController : Controller
     {
         private readonly ApplicationDbContext context;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly int pageSize = 8;
 
-        public StoreController(ApplicationDbContext context)
+        public StoreController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             this.context = context;
+            this.userManager = userManager;
         }
 
         public IActionResult Index(int pageIndex, string? search, string? name, string? type, string? sort)
@@ -108,8 +111,15 @@ namespace SkateShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddAssess(int id)
+        public async Task<IActionResult> AddAssess(int id)
         {
+
+            var appUser = await userManager.GetUserAsync(User);
+            if (appUser == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             // Kiểm tra xem ID có được truyền không
             Console.WriteLine("Product ID: " + id);
 
