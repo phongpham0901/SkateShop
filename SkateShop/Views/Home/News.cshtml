@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Html;
+@model List<Articlecs>
+@{
+    int pageIndex = (int)ViewData["PageIndex"]!;
+    int totalPages = (int)ViewData["TotalPages"]!;
+    string search = (string)ViewData["Search"]!;
+}
+
+<h2 class="text-center mb-5">List of Articlecs</h2>
+
+<div class="row mb-4">
+    <div class="col">
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" name="search" value="@search" placeholder="Search by Title" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+
+<div class="row row-cols-1 g-4">
+    @foreach (var a in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm p-3">
+                <div class="text-center">
+                    <img src="/articlecs/@a.ImageFileName" class="rounded"
+                         style="width: 1000px; height: 1000px; object-fit: contain;"
+                         alt="Article Image">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@a.Title</h5>
+                    <p class="card-text" style="white-space: pre-line;">@a.Content</p>
+                    <small class="text-muted">Created At: @a.CreatedAt.ToString("MM/dd/yyyy")</small>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <li class="page-item @(i == pageIndex ? "active" : "")">
+                <a class="page-link" asp-route-pageIndex="@i" asp-route-search="@search">@i</a>
+            </li>
+        }
+    </ul>
+</nav>
