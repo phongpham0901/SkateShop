@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using SkateShop.Models;
 using SkateShop.Services;
 using System;
@@ -129,6 +131,9 @@ namespace SkateShop.Controllers
 
         public IActionResult Create()
         {
+            var danhMucList = context.categories.ToList(); // Lấy danh sách danh mục từ DB
+            ViewBag.DanhMucList = danhMucList.Select(d => d.Name).ToList();
+
             return View();
         }
 
@@ -178,6 +183,9 @@ namespace SkateShop.Controllers
 
         public IActionResult Edit(int id)
         {
+            var danhMucList = context.categories.ToList(); // Lấy danh sách danh mục từ DB
+            ViewBag.DanhMucList = danhMucList.Select(d => d.Name).ToList();
+
             var product = context.Products.Find(id);
 
             if (product == null)

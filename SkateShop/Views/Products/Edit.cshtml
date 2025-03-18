@@ -37,14 +37,11 @@
                 <label class="col-sm-4 col-form-label">Type</label>
                 <div class="col-sm-8">
                     <select class="form-select" asp-for="Type">
-                        <option value='Truck'>Truck</option>
-                        <option value='Deck'>Deck</option>
-                        <option value='Wheel'>Wheel</option>
-                        <option value='Tool'>Tool</option>
-                        <option value='Griptape'>Griptape</option>
-                        <option value='Bushing'>Bushing</option>
-                        <option value='Bearing'>Bearing</option>
-                        <option value='Hardware'>Hardware</option>
+                        <option value="">-- Select Category --</option>
+                        @foreach (var name in ViewBag.DanhMucList as List<string>)
+                        {
+                            <option value="@name">@name</option>
+                        }
                     </select>
                 </div>
             </div>

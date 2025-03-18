@@ -16,6 +16,7 @@ namespace SkateShop.Services
         public DbSet<OrderItem> Items { get; set; }
         public DbSet<Assess> Assesses { get; set; }
         public DbSet<Articlecs> Articlecs { get; set; }
+        public DbSet<Category> categories { get; set; }
 
     }
 }
