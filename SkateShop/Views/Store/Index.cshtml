@@ -7,16 +7,12 @@
 
 <form class="row g-3 mb-3">
     <div class="col-lg-2 col-md-4">
-        <select class="form-select" name="type" asp-for="Type" onchange="this.form.submit()">
+        <select class="form-select" asp-for="Type" onchange="this.form.submit()">
             <option value="">All Product</option>
-            <option value="Truck">Truck</option>
-            <option value="Deck">Deck</option>
-            <option value="Wheel">Wheel</option>
-            <option value='Tool'>Tool</option>
-            <option value='Griptape'>Griptape</option>
-            <option value='Bushing'>Bushing</option>
-            <option value='Bearing'>Bearing</option>
-            <option value='Hardware'>Hardware</option>
+            @foreach (var name in ViewBag.DanhMucList as List<string>)
+            {
+                <option value="@name">@name</option>
+            }
         </select>
     </div>
     <div class="col-lg-2 col-md-4">

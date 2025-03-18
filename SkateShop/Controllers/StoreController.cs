@@ -19,6 +19,8 @@ namespace SkateShop.Controllers
 
         public IActionResult Index(int pageIndex, string? search, string? name, string? type, string? sort)
         {
+            var danhMucList = context.categories.ToList(); // Lấy danh sách danh mục từ DB
+            ViewBag.DanhMucList = danhMucList.Select(d => d.Name).ToList();
             IQueryable<Product> query = context.Products;
 
             //Tìm kiếm
