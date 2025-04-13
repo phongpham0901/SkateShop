@@ -265,8 +265,8 @@ namespace SkateShop.Controllers
 
 
             context.SaveChanges();
-
-            return RedirectToAction("Index", "Products");
+            TempData["ErrorMessageProduct"] = "Update Success";
+            return RedirectToAction();
         }
 
         public IActionResult Delete(int id)
