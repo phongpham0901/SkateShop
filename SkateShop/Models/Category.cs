@@ -8,5 +8,7 @@ namespace SkateShop.Models
 
         [MaxLength(500)]
         public string Name { get; set; } = "";
+        public string Des { get; set; } = "";
+        public DateTime CreatedAt { get; set; }
     }
 }

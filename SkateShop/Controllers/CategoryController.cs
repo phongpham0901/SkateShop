@@ -74,6 +74,8 @@ namespace SkateShop.Controllers
             Category category = new Category()
             {
                 Name = categoryDto.Name,
+                Des = categoryDto.Des,
+                CreatedAt = DateTime.Now,
             };
 
             context.categories.Add(category);
@@ -95,6 +97,7 @@ namespace SkateShop.Controllers
             var categoryDto = new CategoryDto()
             {
                 Name=a.Name,
+                Des = a.Des,
             };
 
 
@@ -125,6 +128,7 @@ namespace SkateShop.Controllers
            
 
             a.Name = categoryDto.Name;
+            a.Des = categoryDto.Des;
 
 
             context.SaveChanges();

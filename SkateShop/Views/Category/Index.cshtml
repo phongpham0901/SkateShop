@@ -34,8 +34,10 @@
         <thead class="table-success">
             <tr>
                 <th style="width: 10%;">ID</th>
-                <th style="width: 60%;">Name</th>
-                <th style="width: 30%;">Actions</th>
+                <th style="width: 20%;">Name</th>
+                <th style="width: 30%;">Description</th>
+                <th style="width: 20%;">Created At</th>
+                <th style="width: 20%;">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -44,6 +46,8 @@
                 <tr>
                     <td>@a.Id</td>
                     <td>@a.Name</td>
+                    <td>@a.Des</td>
+                    <td>@a.CreatedAt</td>
                     <td>
                         <a class="btn btn-sm btn-warning" asp-controller="Category" asp-action="Edit" asp-route-id="@a.Id">
                             <i class="bi bi-pencil-square"></i> Edit
