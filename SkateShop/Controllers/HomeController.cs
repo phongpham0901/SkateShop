@@ -18,16 +18,7 @@ namespace SkateShop.Controllers
         public IActionResult Index()
         {
             var products = context.Products.OrderByDescending(p => p.Id).Take(4).ToList();
-            if (context.Orders.Any(o => o.OrderStatus == "Pending"))
-            {
-                TempData["HasPending"] = "yes";
-            }
-            else
-            {
-                TempData["HasPending"] = "no";
-            }
-
-
+            
             return View(products);
         }
 
