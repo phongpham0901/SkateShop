@@ -1,0 +1,77 @@
+﻿@model List<SkateShop.Models.MonthlyRevenueViewModel>
+
+@{
+    ViewData["Title"] = "Thống kê doanh thu theo tháng";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<h2>Thống kê theo tháng (năm @DateTime.Now.Year)</h2>
+<canvas id="monthlyRevenueChart"></canvas>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var data = @Html.Raw(Json.Serialize(Model ?? new List<MonthlyRevenueViewModel>()));
+
+        if (data.length === 0) {
+            console.warn("Không có dữ liệu để vẽ biểu đồ.");
+            return;
+        }
+
+        var labels = data.map(item => 'Tháng ' + item.month);
+        var revenues = data.map(item => item.totalRevenue);
+
+
+        var ctx = document.getElementById('monthlyRevenueChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Tổng doanh thu ($)',
+                    data: revenues,
+                    backgroundColor: 'rgba(153, 102, 255, 0.5)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+
+<a href="@Url.Action("ExportMonthlyToExcel", "Statistical")" class="btn btn-success mb-3">Export Excel (theo tháng)</a>
+
+
+<table class="table table-bordered mt-4">
+    <thead>
+        <tr>
+            <th>Tháng</th>
+            <th>Tổng số lượng</th>
+            <th>Tổng doanh thu</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>Tháng @item.Month</td>
+                <td>@item.TotalQuantity</td>
+                <td>@item.TotalRevenue.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Index", "Statistical")" class="btn btn-secondary">← Quay lại thống kê theo sản phẩm</a>
+
+
