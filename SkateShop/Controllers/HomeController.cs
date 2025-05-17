@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SkateShop.Models;
 using SkateShop.Services;
 using System.Diagnostics;
@@ -18,7 +19,26 @@ namespace SkateShop.Controllers
         public IActionResult Index()
         {
             var products = context.Products.OrderByDescending(p => p.Id).Take(4).ToList();
-            
+
+            var topProducts = context.Items
+    .Include(oi => oi.Product)
+    .Include(oi => oi.Order)
+    .Where(oi => oi.Order.OrderStatus == "Delivered")
+    .AsEnumerable() 
+    .GroupBy(oi => oi.Product.Id)
+    .Select(g => new
+    {
+        Product = g.First().Product,
+        TotalQuantity = g.Sum(oi => oi.Quantity)
+    })
+    .OrderByDescending(x => x.TotalQuantity)
+    .Take(4)
+    .Select(x => x.Product)
+    .ToList();
+
+
+            ViewData["TopProducts"] = topProducts;
+
             return View(products);
         }
 

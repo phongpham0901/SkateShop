@@ -5,7 +5,7 @@
 }
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<h2>Biểu đồ thống kê doanh thu</h2>
+<h2>Revenue statistics chart</h2>
 <canvas id="revenueChart"></canvas>
 
 <script>
@@ -41,12 +41,12 @@
 
 
 
-<h2> Bảng thống kê Doanh Thu</h2>
+<h2> Revenue Statistics Table </h2>
 
 <!-- Nút xuất Excel -->
 <a href="@Url.Action("ExportToExcel", "Statistical")" class="btn btn-success mb-3">Export Excel</a>
 <!-- Nút chuyển sang thống kê theo tháng -->
-<a href="@Url.Action("Monthly", "Statistical")" class="btn btn-primary mb-3">Xem thống kê theo tháng</a>
+<a href="@Url.Action("Monthly", "Statistical")" class="btn btn-primary mb-3">View statistics by month</a>
 <p>Total revenue of all products: @ViewBag.TotalRevenueOfAllProducts.ToString("N0") $</p>
 
 <table class="table table-bordered">
